@@ -84,6 +84,8 @@ sigmas[sigmas < 0] *= -1
 def get_top_images(images, uniq, mu):
     top_images = []
     for i in range(k):
+        # Cov can be set to 1, as this doesn't change the order
+        # Using the estimated sigma i leads to numerical errors
         probabilities = multivariate_normal.pdf(images, mean=mu[:, i], cov=1)
         top = np.argsort(probabilities)[::-1][:4]
         for j in range(4):
